@@ -1,6 +1,6 @@
-package com.cortez.samples.javaee7angular.pagination;
+package com.infnet.projeto.pagination;
 
-import com.cortez.samples.javaee7angular.data.Person;
+import com.infnet.projeto.data.Person;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

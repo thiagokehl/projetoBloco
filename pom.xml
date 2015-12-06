@@ -56,5 +56,18 @@
             <version>${version.dependency.javaee}</version>
             <scope>provided</scope>
         </dependency>
+<dependency>
+	<groupId>commons-codec</groupId>
+	<artifactId>commons-codec</artifactId>
+	<version>1.4</version>
+         <scope>provided</scope>
+</dependency>
+
+   <dependency>
+	<groupId>org.codehaus.jackson</groupId>
+	<artifactId>jackson-mapper-asl</artifactId>
+	<version>1.9.13</version>
+</dependency>
+
     </dependencies>
 </project>

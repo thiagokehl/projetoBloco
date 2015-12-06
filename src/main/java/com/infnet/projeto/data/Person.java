@@ -1,4 +1,4 @@
-package com.cortez.samples.javaee7angular.data;
+package com.infnet.projeto.data;
 
 import javax.persistence.*;
 

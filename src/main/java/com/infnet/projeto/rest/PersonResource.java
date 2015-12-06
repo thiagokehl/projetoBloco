@@ -1,7 +1,7 @@
-package com.cortez.samples.javaee7angular.rest;
+package com.infnet.projeto.rest;
 
-import com.cortez.samples.javaee7angular.data.Person;
-import com.cortez.samples.javaee7angular.pagination.PaginatedListWrapper;
+import com.infnet.projeto.data.Person;
+import com.infnet.projeto.pagination.PaginatedListWrapper;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
