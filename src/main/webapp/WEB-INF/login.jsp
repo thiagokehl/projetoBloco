@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
-<title>Login</title>
+<title>InfNet</title>
     
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/auth.css" />  
       
@@ -22,7 +22,7 @@
  
         <form action="j_security_check" method="post">
           <fieldset>
-            <legend>Login</legend>
+            <legend>Sistema de avaliações - InfNet</legend>
                           
             <div>
               <label for="email">Email</label> 
