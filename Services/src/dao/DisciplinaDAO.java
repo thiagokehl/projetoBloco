@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Disciplina;
+import model.Turma;
 
 public class DisciplinaDAO extends DAO{
 	private static final String QUERY_SELECT_BY_BLOCO = "Select * from disciplina where idBloco = ?";
-
+	private TurmaDAO turmaDAO = new TurmaDAO();
+	
 	public List<Disciplina> consultar(Long idBloco) throws SQLException {
 		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 		Connection conexao = getConexao(); 
@@ -23,6 +25,10 @@ public class DisciplinaDAO extends DAO{
 			disciplina.setId(rs.getLong("id"));
 			disciplina.setNome(rs.getString("nome"));
 			disciplina.setSemestre(rs.getString("semestre"));
+			
+			List<Turma> turmas = turmaDAO.consultar(disciplina.getId());
+			disciplina.setTurmas(turmas);
+			
 			disciplinas.add(disciplina);
 		}
 		pstm.close(); 

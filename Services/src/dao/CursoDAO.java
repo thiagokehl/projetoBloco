@@ -8,13 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Bloco;
 import model.Curso;
 
 public class CursoDAO extends DAO {
 
 	private static final String QUERY_LISTAR = "Select * from curso";
 	private static final String QUERY_SELECT = "Select * from curso where id = ?";
-
+	private BlocoDAO blocoDAO = new BlocoDAO();
+	
 	public List<Curso> listar() throws SQLException { 
 		List<Curso> lista = new ArrayList<>();
 		
@@ -41,7 +43,10 @@ public class CursoDAO extends DAO {
 		if (rs.next()) {
 			curso = new Curso();
 			curso.setId(id);
-			curso.setNome(rs.getString("nome")); 
+			curso.setNome(rs.getString("nome"));
+			
+			List<Bloco> blocos = blocoDAO.consultar(id);
+			curso.setBlocos(blocos);
 		}
 		pstm.close(); 
 		conexao.close();

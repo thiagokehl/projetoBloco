@@ -3,8 +3,10 @@ package model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 @XmlRootElement
+@JsonPropertyOrder({"id", "matricula", "nome", "email"})
 public class Aluno {
 	@JsonProperty
 	private Long id;
