@@ -34,7 +34,7 @@ public class CursoDAO extends DAO {
 		rs.close();
 		return lista; 
 	}
-	public Curso consultar(Long id) throws SQLException {
+	public Curso findById(Long id) throws SQLException {
 		Curso curso = null;
 		Connection conexao = getConexao(); 
 		PreparedStatement pstm = conexao.prepareStatement(QUERY_SELECT); 

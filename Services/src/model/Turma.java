@@ -17,6 +17,9 @@ public class Turma {
 
 	@JsonProperty
 	private List<Aluno> alunos;
+	
+	@JsonProperty
+	private Avaliacao avaliacao;
 
 	public Long getId() {
 		return id;
@@ -40,5 +43,13 @@ public class Turma {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+
+	public Avaliacao getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(Avaliacao avaliacao) {
+		this.avaliacao = avaliacao;
 	}
 }

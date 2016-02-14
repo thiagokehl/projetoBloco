@@ -39,7 +39,7 @@ public class CursoResource {
 	public Response getCurso(@PathParam("cursoId") Long cursoId){
 		Curso curso;
 		try {
-			curso = cursoDAO.consultar(cursoId);			
+			curso = cursoDAO.findById(cursoId);			
 		} catch (SQLException e) {
 			return Response.serverError().build();
 		}
