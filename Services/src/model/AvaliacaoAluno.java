@@ -7,11 +7,20 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @XmlRootElement
 public class AvaliacaoAluno{
 	@JsonProperty
+	private Long id;
+	@JsonProperty
 	private Aluno aluno;
 	@JsonProperty
 	private String finalizada;
+	@JsonProperty
 	private QuestionarioResposta questionarioResposta;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public Aluno getAluno() {
 		return aluno;
 	}

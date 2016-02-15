@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class Avaliacao {
 	@JsonProperty 
 	private Questionario questionario;
 	@JsonProperty
-	private List<AvaliacaoAluno> avaliacoesAluno; 
+	private List<AvaliacaoAluno> avaliacoesAlunos; 
 	
 	public Long getId() {
 		return id;
@@ -47,25 +46,11 @@ public class Avaliacao {
 	public void setQuestionario(Questionario questionario) {
 		this.questionario = questionario;
 	}
-	public List<AvaliacaoAluno> getAvaliacoesAluno() {
-		return avaliacoesAluno;
-	}
-	public void setAvaliacoesAluno(List<AvaliacaoAluno> avaliacoesAluno) {
-		this.avaliacoesAluno = avaliacoesAluno;
-	}
 	
-	public String getStatus(){
-		
-		Date today = Calendar.getInstance().getTime();
-		
-		if(inicio.before(today)){
-			return "NÃO INICIADA";
-		}
-		
-		if(fim.after(new Date())){
-			return "FINALIZADA";
-		}
-		
-		return "ABERTA";
+	public List<AvaliacaoAluno> getAvaliacoesAlunos() {
+		return avaliacoesAlunos;
+	}
+	public void setAvaliacoesAlunos(List<AvaliacaoAluno> avaliacoesAlunos) {
+		this.avaliacoesAlunos = avaliacoesAlunos;
 	}
 }

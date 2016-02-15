@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 @XmlRootElement
-public class QuestionarioResposta extends Questionario{
+public class QuestionarioResposta{
 	@JsonProperty
 	private List<QuestaoResposta> respostas;
 
