@@ -14,9 +14,10 @@
       <div class="login">
          
         <!-- did we already try to login and it failed? -->
-        <c:if test="false">
+        
+       <c:if test="${not empty param.fail}">
             <div class="authError">
-                Invalid User Name or Password. Please try again.
+                Email ou senha inválidos.
             </div>
         </c:if>
  
