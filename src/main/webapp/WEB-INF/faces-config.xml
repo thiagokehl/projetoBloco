@@ -6,7 +6,6 @@
 	version="2.0">
 
 	<navigation-rule>
-		<from-view-id>/secure/menu.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/WEB-INF/login.jsp</to-view-id>

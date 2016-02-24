@@ -1,26 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>InfNet-Sistema de Avaliação Online</title>
 </h:head>
 <h:body>
-	<f:view>
-            <h:form>
-                 <p:growl id="messages" showDetail="false"/>
+	<ui:composition>
+                <p:growl id="messages" showDetail="false"/>
 		<p:dock position="bottom">
-			<p:menuitem value="Todas avaliações" icon="/img/portfolio.png"
-				url="#" />
-			<p:menuitem value="Criar avaliação" icon="/img/document_new.png"
-				url="#" />
-			<p:menuitem value="Criar Questionário" icon="/img/fill.png" url="#" />
+                    <p:menuitem value="Todas avaliações" icon="/img/portfolio.png" ajax="false"
+				action="allAvaliacoes.xhtml" />
+                    <p:menuitem value="Criar avaliação" icon="/img/document_new.png" ajax="false"
+				action="createAvaliacao.xhtml" />
+			<p:menuitem value="Criar Questionário" icon="/img/fill.png" action="createQuestionario.xhtml" ajax="false" />
                         <p:menuitem ajax="false" value="Sair" icon="/img/log_off.png" update="messages" action="#{menuMBean.logout}" />
 		</p:dock>
-            </h:form>
-	</f:view>
+        </ui:composition>
 </h:body>
 </html>
 
