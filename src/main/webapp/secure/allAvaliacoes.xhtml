@@ -10,7 +10,10 @@
 <h:head>
 </h:head>
 <h:body>
+    <f:view>
+        
 	<h:form>
+            <ui:include src="menu.xhtml"/>
 	   <p:dataList value="#{cursoMBean.cursos}" var="curso" type="ordered">
         <f:facet name="header">
             Todos os Cursos:
@@ -18,6 +21,6 @@
         #{curso.nome}
     </p:dataList>
 	</h:form>
-
+</f:view>
 </h:body>
 </html>

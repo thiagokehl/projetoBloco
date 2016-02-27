@@ -18,7 +18,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class CursoMBean {
+public class CursoMBean extends BaseMBean{
 
     private List<Curso> cursos = CursoClient.getAllCursos();
 
