@@ -11,12 +11,16 @@
 	<ui:composition>
                 <p:growl id="messages" showDetail="false"/>
 		<p:dock position="bottom">
-                    <p:menuitem value="Todas avaliações" icon="/img/portfolio.png" ajax="false"
+                    <p:menuitem value="Todas Cursos" icon="/img/portfolio.png" ajax="false"
+				action="allAvaliacoes.xhtml" />
+                    <p:menuitem value="Todas avaliações" icon="/img/view.jpg" ajax="false"
 				action="listAllAvaliacoes.xhtml" />
                     <p:menuitem value="Criar avaliação" icon="/img/document_new.png" ajax="false"
 				action="createAvaliacao.xhtml" />
-			<p:menuitem value="Criar Questionário" icon="/img/fill.png" action="createQuestionario.xhtml" ajax="false" />
-                        <p:menuitem ajax="false" value="Sair" icon="/img/log_off.png" update="messages" action="#{menuMBean.logout}" />
+                    <p:menuitem value="Criar Questionário" icon="/img/fill.png" 
+                                action="createQuestionario.xhtml" ajax="false" />
+                    <p:menuitem ajax="false" value="Sair" icon="/img/log_off.png" update="messages" 
+                                action="#{menuMBean.logout}" />
 		</p:dock>
         </ui:composition>
 </h:body>

@@ -17,23 +17,10 @@ import java.util.List;
  */
 @ManagedBean
 @ViewScoped
-public class AvaliacaoBean {
+public class AvaliacaoMBean {
     
     private List<AvaliacaoDispVO> avaliacoesDisp = AvaliacaoClient.getAvaliacoesDisp();
-    
-//    private ArrayList<AvaliacaoDispVO> testeInitAvaliacoesDisp(){
-//        ArrayList<AvaliacaoDispVO> avaliacaoDisp = new ArrayList<AvaliacaoDispVO>();
-//        
-//        AvaliacaoDispVO avaliacao =  new AvaliacaoDispVO();
-//        avaliacao.setDisciplinaNome("Analise OO");
-//        avaliacao.setProfessorNome("juca");
-//        avaliacao.setSemestreDisciplina("012016");
-//        
-//        avaliacaoDisp.add(avaliacao);
-//        
-//        return avaliacaoDisp;
-//    }
-    
+       
     public List<AvaliacaoDispVO> getAvaliacoesDisp(){
         return this.avaliacoesDisp;
     }
