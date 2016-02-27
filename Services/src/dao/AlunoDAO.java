@@ -12,7 +12,7 @@ import model.Aluno;
 public class AlunoDAO extends DAO{
 	private static final String QUERY_SELECT_BY_TURMA = "select * from aluno, turma_alunos where aluno.id = turma_alunos.idAluno and turma_alunos.idTurma = ?;";
 	private static final String QUERY_SELECT = "select * from aluno where id = ?";
-
+ 
 	public Aluno findById(Long id) throws SQLException {
 		Aluno aluno = null;
 		Connection conexao = getConexao(); 
@@ -53,4 +53,5 @@ public class AlunoDAO extends DAO{
 		
 		return alunos; 
 	} 
+	
 }
