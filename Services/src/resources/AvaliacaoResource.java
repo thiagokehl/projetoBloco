@@ -9,10 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import dao.AvaliacaoDAO;
-import model.Curso;
 import vo.AvaliacaoDispVO;
 
 @Path("/avaliacao")
@@ -33,7 +31,5 @@ public class AvaliacaoResource {
 		GenericEntity<List<AvaliacaoDispVO>> entity = new GenericEntity<List<AvaliacaoDispVO>>(avaliacoesDisp) {};
 		
 		return Response.ok().entity(entity).build();
-		// Response.ok().entity(entity).build();
-		//return Response.status(Status.OK).entity(avaliacoesDisp).build();		
 	}
 }
