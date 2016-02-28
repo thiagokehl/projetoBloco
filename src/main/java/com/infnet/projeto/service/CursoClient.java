@@ -18,11 +18,19 @@ import java.util.List;
  * @author Kehlt
  */
 public class CursoClient {
-    public static List<Curso> getAllCursos(){
-        Client client = Client.create();
-	WebResource webResource = client.resource("http://localhost:8888/services/rest/curso");
-	List<Curso> cursos  = webResource.get(new GenericType<List<Curso>>(){});
-        
-        return cursos;
-    }
+	public static List<Curso> getAllCursos(){
+		Client client = Client.create();
+		WebResource webResource = client.resource("http://localhost:8888/services/rest/curso");
+		List<Curso> cursos  = webResource.get(new GenericType<List<Curso>>(){});
+
+		return cursos;
+	}
+
+	public static Curso getInfo(String id){
+		Client client = Client.create();
+		WebResource webResource = client.resource("http://localhost:8888/services/rest/curso/" + id);
+		Curso curso  = webResource.get(Curso.class);
+
+		return curso;
+	}
 }

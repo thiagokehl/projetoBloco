@@ -1,25 +1,24 @@
 package utils;
 
-import java.util.List;
+import java.net.MalformedURLException;
 
-import model.Curso;
+import org.apache.commons.mail.EmailException;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.WebResource;
+import model.Aluno;
+import vo.AvaliacaoDispVO;
 
 public class Teste {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MalformedURLException, EmailException {
+		Aluno aluno = new Aluno();
+		aluno.setEmail("thiagokehl@gmail.com");
+		aluno.setNome("Thiago");
+		AvaliacaoDispVO avaliacao = new AvaliacaoDispVO();
+		avaliacao.setAlunoID(2L);
+		avaliacao.setAvaliacaoID(1L);
+		avaliacao.setDisciplinaNome("Engenharia de Software");
+		avaliacao.setProfessorNome("Aquino");
 		
-		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8888/services/rest/curso");
-		
-		List<Curso> cursos  = webResource.get(new GenericType<List<Curso>>(){});
-
-		for(Curso curso : cursos ){
-			System.out.println("ID: " + curso.getId() + "\nNOME: " + curso.getNome());
-		}
-		}
-
+		EmailUtil.enviaEmail(aluno, avaliacao);
+	}
 }

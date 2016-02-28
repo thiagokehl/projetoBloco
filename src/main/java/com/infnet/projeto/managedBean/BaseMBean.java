@@ -14,6 +14,11 @@ import javax.faces.context.FacesContext;
  * @author Kehlt
  */
 public class BaseMBean {
+	
+	public void addMessage(String summary){
+		addMessage(summary, "");
+	}
+	
      public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);

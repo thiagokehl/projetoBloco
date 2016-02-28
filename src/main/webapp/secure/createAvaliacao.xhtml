@@ -8,13 +8,82 @@
 <h:head>
 	<title>Criar Avaliação</title>
 </h:head>
-    <h:body>
-        <f:view>
-            <h:form>
-                <h1>Nova Avaliação:</h1>
-                <ui:include src="menu.xhtml"/>
-            </h:form>
-        </f:view>
+<h:body>
+	<f:view>
+		<h:form>
+
+			<p:panel header="Nova Avaliação">
+				<p:outputLabel for="dataInicio" value="Data Início:  " />
+				<p:calendar id="dataInicio" mask="true" pattern="dd/MM/yyyy"
+					value="#{avaliacaoMBean.dataInicio}" showOn="button" locale="pt_BR"
+					lang="pt_BR" />
+				<br />
+				<br />
+				<p:outputLabel for="dataFinal" value="Data Final:  " />
+				<p:calendar id="dataFinal" mask="true" pattern="dd/MM/yyyy"
+					value="#{avaliacaoMBean.dataFim}" showOn="button" locale="pt_BR"
+					lang="pt_BR" />
+				<p:separator />
+				<br />
+				<p:outputLabel for="curso" value="Curso:  " />
+				<p:spacer width="30" height="10" />
+				<p:selectOneMenu id="curso" value="#{avaliacaoMBean.cursoId}"
+					style="width:500px">
+					<p:ajax update="bloco" />
+					<f:selectItem itemLabel="Selecione um curso" itemValue="" />
+					<f:selectItems value="#{avaliacaoMBean.cursos}" />
+				</p:selectOneMenu>
+
+				<br />
+				<br />
+
+				<p:outputLabel for="bloco" value="Bloco:  " />
+				<p:spacer width="30" height="10" />
+				<p:selectOneMenu id="bloco" value="#{avaliacaoMBean.blocoId}"
+					style="width:500px">
+					<p:ajax update="disciplina" />
+					<f:selectItems value="#{avaliacaoMBean.blocos}" />
+				</p:selectOneMenu>
+
+
+				<br />
+				<br />
+				<p:outputLabel for="disciplina" value="Disciplina:  " />
+				<p:selectOneMenu id="disciplina"
+					value="#{avaliacaoMBean.disciplinaId}" style="width:500px">
+					<p:ajax update="turma" />
+					<f:selectItems value="#{avaliacaoMBean.disciplinas}" />
+				</p:selectOneMenu>
+
+				<br />
+				<br />
+				<p:outputLabel for="turma" value="Turma:  " />
+				<p:spacer width="25" height="10" />
+				<p:selectOneMenu id="turma" value="#{avaliacaoMBean.turmaId}"
+					style="width:500px">
+					<p:ajax update="professor" />
+					<f:selectItems value="#{avaliacaoMBean.turmas}" />
+				</p:selectOneMenu>
+				<p:spacer width="150" height="10" />
+				<p:outputLabel for="professor" value="Professor:  " />
+				<p:outputLabel id="professor"
+					value="#{avaliacaoMBean.professorNome}" />
+
+				<p:separator />
+				<br />
+				<br />
+				<p:outputPanel style="width: 100%; text-align:center" layout="block">
+					<p:commandButton value="Salvar" id="save"
+						style="height: 30px; width: 100px; horizontal-align:center;"
+						actionListener="#{avaliacaoMBean.salvarAvaliacao}"
+						update="messages" icon="ui-icon-disk" />
+				</p:outputPanel>
+
+
+			</p:panel>
+			<ui:include src="menu.xhtml" />
+		</h:form>
+	</f:view>
 </h:body>
 </html>
 
