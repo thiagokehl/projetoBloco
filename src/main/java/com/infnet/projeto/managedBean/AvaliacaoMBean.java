@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.infnet.projeto.managedBean;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +30,7 @@ import com.infnet.projeto.service.CursoClient;
 public class AvaliacaoMBean extends BaseMBean{
 
 	private List<AvaliacaoDispVO> avaliacoesDisp = AvaliacaoClient.getAvaliacoesDisp();
-	private Date dataInicio;
+	private Date dataInicio = new Date();
 	private Date dataFim;
 	private List<SelectItem> cursos;
 	private String cursoId;
@@ -228,12 +224,21 @@ public class AvaliacaoMBean extends BaseMBean{
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(Date dataFim) {		
 		this.dataFim = dataFim;
 	} 
 	
     public void salvarAvaliacao(ActionEvent actionEvent) {
-        addMessage("Avaliação criada!");
+    	
+		if(AvaliacaoClient.criarAvaliacao()){
+			addInfoMessage("Avaliação criada!");
+		}else{
+			addWarningMessage("Problemas ao criar avaliação!");
+		}
+    }
+    
+    public Date getToday(){
+    	return Calendar.getInstance().getTime();
     }
 
 }

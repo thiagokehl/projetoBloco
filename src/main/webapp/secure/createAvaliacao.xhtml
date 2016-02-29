@@ -12,22 +12,34 @@
 	<f:view>
 		<h:form>
 
-			<p:panel header="Nova Avaliação">
-				<p:outputLabel for="dataInicio" value="Data Início:  " />
+			<p:panel id="inputPanel" header="Nova Avaliação">
+				<p:outputLabel for="dataInicio" value="Data Início     " />
 				<p:calendar id="dataInicio" mask="true" pattern="dd/MM/yyyy"
 					value="#{avaliacaoMBean.dataInicio}" showOn="button" locale="pt_BR"
-					lang="pt_BR" />
+					lang="pt_BR" mindate="#{avaliacaoMBean.today}" maxdate="#{avaliacaoMBean.dataFim}">
+					<p:ajax update="messages" />
+					<p:ajax event="dateSelect" update="dataFinal" />
+					<p:ajax event="dateSelect" update="@this" />
+				</p:calendar>
 				<br />
 				<br />
-				<p:outputLabel for="dataFinal" value="Data Final:  " />
+				<p:outputLabel for="dataFinal" value="Data Final" />
 				<p:calendar id="dataFinal" mask="true" pattern="dd/MM/yyyy"
 					value="#{avaliacaoMBean.dataFim}" showOn="button" locale="pt_BR"
-					lang="pt_BR" />
+					lang="pt_BR" required="true"
+					requiredMessage="Data final é obrigatória!"
+					mindate="#{avaliacaoMBean.dataInicio}" >
+					<p:ajax update="messages" />
+					<p:ajax event="dateSelect" update="dataInicio" />
+					<p:ajax event="dateSelect" update="@this" />
+				</p:calendar>
+
 				<p:separator />
 				<br />
-				<p:outputLabel for="curso" value="Curso:  " />
+				<p:outputLabel for="curso" value="Curso" />
 				<p:spacer width="30" height="10" />
 				<p:selectOneMenu id="curso" value="#{avaliacaoMBean.cursoId}"
+					required="true" requiredMessage="Você deve selecionar um curso!"
 					style="width:500px">
 					<p:ajax update="bloco" />
 					<f:selectItem itemLabel="Selecione um curso" itemValue="" />
@@ -37,9 +49,10 @@
 				<br />
 				<br />
 
-				<p:outputLabel for="bloco" value="Bloco:  " />
+				<p:outputLabel for="bloco" value="Bloco" />
 				<p:spacer width="30" height="10" />
 				<p:selectOneMenu id="bloco" value="#{avaliacaoMBean.blocoId}"
+					required="true" requiredMessage="Você deve selecionar o bloco!"
 					style="width:500px">
 					<p:ajax update="disciplina" />
 					<f:selectItems value="#{avaliacaoMBean.blocos}" />
@@ -48,19 +61,22 @@
 
 				<br />
 				<br />
-				<p:outputLabel for="disciplina" value="Disciplina:  " />
+				<p:outputLabel for="disciplina" value="Disciplina" />
 				<p:selectOneMenu id="disciplina"
-					value="#{avaliacaoMBean.disciplinaId}" style="width:500px">
+					value="#{avaliacaoMBean.disciplinaId}" style="width:500px"
+					required="true"
+					requiredMessage="Você deve selecionar a disciplina!">
 					<p:ajax update="turma" />
 					<f:selectItems value="#{avaliacaoMBean.disciplinas}" />
 				</p:selectOneMenu>
 
 				<br />
 				<br />
-				<p:outputLabel for="turma" value="Turma:  " />
+				<p:outputLabel for="turma" value="Turma" />
 				<p:spacer width="25" height="10" />
 				<p:selectOneMenu id="turma" value="#{avaliacaoMBean.turmaId}"
-					style="width:500px">
+					style="width:500px" required="true"
+					requiredMessage="Você deve selecionar a turma!">
 					<p:ajax update="professor" />
 					<f:selectItems value="#{avaliacaoMBean.turmas}" />
 				</p:selectOneMenu>
@@ -72,15 +88,17 @@
 				<p:separator />
 				<br />
 				<br />
-				<p:outputPanel style="width: 100%; text-align:center" layout="block">
-					<p:commandButton value="Salvar" id="save"
-						style="height: 30px; width: 100px; horizontal-align:center;"
-						actionListener="#{avaliacaoMBean.salvarAvaliacao}"
-						update="messages" icon="ui-icon-disk" />
-				</p:outputPanel>
-
 
 			</p:panel>
+			<p:outputPanel style="width: 100%; text-align:center" layout="block">
+				<p:commandButton value="Salvar" id="save"
+					style="height: 30px; width: 150px; horizontal-align:center;"
+					actionListener="#{avaliacaoMBean.salvarAvaliacao}"
+					update="messages" icon="ui-icon-check" action="allAvaliacoes.xhtml" ajax="false"/>
+				<p:button outcome="allAvaliacoes" value="Cancelar"
+					icon="ui-icon-cancel" immediate="true" style="height: 30px; width: 150px; horizontal-align:center;" />
+			</p:outputPanel>
+
 			<ui:include src="menu.xhtml" />
 		</h:form>
 	</f:view>

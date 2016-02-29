@@ -12,15 +12,15 @@
                 <p:growl id="messages" showDetail="false"/>
 		<p:dock position="bottom">
                     <p:menuitem value="Questionario" icon="/img/portfolio.png" ajax="false"
-				action="acessQuestionario.xhtml" />
+				action="acessQuestionario.xhtml" immediate="true"/>
                     <p:menuitem value="Todas avaliações" icon="/img/view.jpg" ajax="false"
-				action="listAllAvaliacoes.xhtml" />
+				action="listAllAvaliacoes.xhtml" immediate="true"/>
                     <p:menuitem value="Criar avaliação" icon="/img/document_new.png" ajax="false"
-				action="createAvaliacao.xhtml" />
+				action="createAvaliacao.xhtml" immediate="true"/>
                     <p:menuitem value="Criar Questionário" icon="/img/fill.png" 
-                                action="createQuestionario.xhtml" ajax="false" />
+                                action="createQuestionario.xhtml" ajax="false" immediate="true"/>
                     <p:menuitem ajax="false" value="Sair" icon="/img/log_off.png" update="messages" 
-                                action="#{menuMBean.logout}" />
+                                action="#{menuMBean.logout}" immediate="true"/>
 		</p:dock>
         </ui:composition>
 </h:body>

@@ -22,5 +22,9 @@ public class AvaliacaoClient {
 	List<AvaliacaoDispVO> avaliacoesDisp  = webResource.get(new GenericType<List<AvaliacaoDispVO>>(){});
         
         return avaliacoesDisp;
-    }    
+    }
+    
+    public static boolean criarAvaliacao(){
+    	return true;
+    }
 }

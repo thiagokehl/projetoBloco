@@ -20,7 +20,7 @@ public class MenuMBean extends BaseMBean{
 
     public String logout() {
         ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
-        addMessage("Deslogado", "");
+        addInfoMessage("Deslogado");
         return "logout";
     }
 }
