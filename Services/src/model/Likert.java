@@ -1,8 +1,8 @@
 package model;
 
 public enum Likert {
-	UM("Não concordo totalmente"),
-	DOIS("Não concordo parcialmente"),
+	UM("Nao concordo totalmente"),
+	DOIS("Nao concordo parcialmente"),
 	TRES("Indiferente"),
 	QUATRO("Concordo parcialmente"),
 	CINCO("Concordo totalmente");

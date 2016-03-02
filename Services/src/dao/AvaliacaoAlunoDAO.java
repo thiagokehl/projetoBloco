@@ -12,7 +12,7 @@ import model.AvaliacaoAluno;
 import model.QuestionarioResposta;
 
 public class AvaliacaoAlunoDAO extends DAO{
-	private static final String QUERY_SELECT_BY_AVALIACAO = "select * from AVALIACAO_ALUNO where idAvaliacao = ?";
+	private static final String QUERY_SELECT_BY_AVALIACAO = "select * from avaliacao_aluno where idAvaliacao = ?";
 
 	private AlunoDAO alunoDAO = new AlunoDAO();
 	private QuestionarioRespostaDAO questionarioRespostaDAO = new QuestionarioRespostaDAO();
@@ -23,7 +23,7 @@ public class AvaliacaoAlunoDAO extends DAO{
 		PreparedStatement pstm = conexao.prepareStatement(QUERY_SELECT_BY_AVALIACAO); 
 		pstm.setLong(1, idAvaliacao); 
 		ResultSet rs = pstm.executeQuery(); 
-		while (rs.next()) {
+		while (rs.next()) {   
 			AvaliacaoAluno avaliacaoAluno = new AvaliacaoAluno();
 			avaliacaoAluno.setId(rs.getLong("id"));
 			avaliacaoAluno.setFinalizada(rs.getString("finalizada"));

@@ -13,10 +13,10 @@ import com.sun.jersey.api.client.WebResource;
 import java.util.List;
 
 
-/**
+/** 
  *
  * @author Kehlt
- */
+     */
 public class CursoClient {
 	public static List<Curso> getAllCursos(){
 		Client client = Client.create();

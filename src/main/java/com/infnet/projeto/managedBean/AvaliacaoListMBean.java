@@ -6,6 +6,7 @@ import com.infnet.projeto.data.Curso;
 import com.infnet.projeto.data.Disciplina;
 import com.infnet.projeto.data.Turma;
 import com.infnet.projeto.service.CursoClient;
+import com.infnet.projeto.service.TurmaClient;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,17 +27,21 @@ public class AvaliacaoListMBean extends BaseMBean{
          
 	@PostConstruct
 	public void init() {
-                allAvaliacoes = new ArrayList<AvaliacaoVO>(); 
-		List<Curso> allCursos = CursoClient.getAllCursos();
+                allAvaliacoes = new ArrayList<AvaliacaoVO>();     
+                
+        	List<Curso> allCursos = CursoClient.getAllCursos();
                 for (Curso oneCurso: allCursos){
                     Curso curso = CursoClient.getInfo(oneCurso.getId().toString());
                     for(Bloco oneBloco : curso.getBlocos()){
                          for (Disciplina oneDisciplina : oneBloco.getDisciplinas()){
-                             for (Turma oneTurma : oneDisciplina.getTurmas()){
-                                 if (oneTurma.getAvaliacao() != null){
-                                    AvaliacaoVO avaliacaoVO = new AvaliacaoVO(oneTurma.getAvaliacao().getId(), oneCurso.getNome(), oneDisciplina.getNome(), oneTurma.getId().toString());
-                                    allAvaliacoes.add(avaliacaoVO);
-                                 }
+                             if (oneDisciplina.getTurmas() != null){
+                                for (Turma oneTurma : oneDisciplina.getTurmas()){                                    
+                                    Turma turma = TurmaClient.getInfo(oneTurma.getId().toString());                                    
+                                    if (turma.getAvaliacao() != null){
+                                       AvaliacaoVO avaliacaoVO = new AvaliacaoVO(turma.getAvaliacao().getId(), curso.getNome(), oneDisciplina.getNome(), turma.getId().toString());
+                                       allAvaliacoes.add(avaliacaoVO);
+                                    }
+                                }
                              }
                          }
                      }                       

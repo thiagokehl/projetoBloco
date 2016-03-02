@@ -35,35 +35,35 @@ public class AvaliacaoVO {
     
     
     
-    private Long getIdAvaliacao(){
+    public Long getIdAvaliacao(){
         return this.idAvaliacao;
     }
     
-    private void setIdAvaliacao(Long idAvaliacao){
+    public void setIdAvaliacao(Long idAvaliacao){
         this.idAvaliacao = idAvaliacao;
     }
     
-    private String getCurso(){
+    public String getCurso(){
         return this.curso;
     }
     
-    private void setCurso(String curso){
+    public void setCurso(String curso){
         this.curso = curso;        
     }
 
-    private String getDisciplina(){
+    public String getDisciplina(){
         return this.disciplina;
     }
     
-    private void setDisciplina(String disciplina){
+    public void setDisciplina(String disciplina){
         this.disciplina = disciplina;
     }
     
-    private String getTurma(){
+    public String getTurma(){
         return this.turma;
     }
 
-    private void setTurma(String turma){
+    public void setTurma(String turma){
         this.turma = turma;
     }
  
