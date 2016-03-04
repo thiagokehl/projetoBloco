@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form>
+           <ui:include src="menu.xhtml"/>        
+            <p:dataTable var="avaliacao" value="#{avaliacaoTurmaMBean.allAvaliacoes}">
+                <f:facet name="header">
+                    <h:outputText value="#{avaliacaoTurmaMBean.curso}" />
+                    <br/>
+                    <h:outputText value="#{avaliacaoTurmaMBean.disciplina.nome} - #{avaliacaoTurmaMBean.disciplina.semestre}  - Turma #{avaliacaoTurmaMBean.turma}" />
+                </f:facet>                
+                <p:column headerText="Finalizada">
+                    value="#{avaliacao.finalizada}" />
+                </p:column>
+
+                <p:column headerText="Aluno">
+                    <h:outputText value="#{avaliacao.nomeAluno}" />
+                </p:column>
+
+                <p:column headerText="Matricula">
+                    <h:outputText value="#{avaliacao.matricula}" />
+                </p:column>
+            </p:dataTable>           
+           
+           
+	</h:form>
+
+</h:body>
+</html>
