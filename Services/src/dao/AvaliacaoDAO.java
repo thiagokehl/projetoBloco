@@ -92,7 +92,7 @@ public class AvaliacaoDAO extends DAO {
 				pstm.setLong(2, aluno.getId());
 				pstm.execute();
 				
-				EmailUtil emailUtil = new EmailUtil(id, aluno, avaliacao.getTurma(), avaliacao.getDisciplina());
+				EmailUtil emailUtil = new EmailUtil(id, aluno, avaliacao);
 				emailUtil.start();
 			}
 		}
