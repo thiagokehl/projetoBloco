@@ -14,6 +14,7 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.lang3.StringUtils;
 
 import com.infnet.projeto.data.AvaliacaoDispVO;
+import com.infnet.projeto.data.AvaliacaoTurma;
 import com.infnet.projeto.data.Bloco;
 import com.infnet.projeto.data.Curso;
 import com.infnet.projeto.data.Disciplina;
@@ -230,7 +231,14 @@ public class AvaliacaoMBean extends BaseMBean{
 	
     public void salvarAvaliacao(ActionEvent actionEvent) {
     	
-		if(AvaliacaoClient.criarAvaliacao()){
+    	AvaliacaoTurma avaliacao = new AvaliacaoTurma();
+    	avaliacao.setInicio(dataInicio);
+    	avaliacao.setFim(dataFim);
+    	avaliacao.setCurso(cursoInfo);
+    	avaliacao.setDisciplina(disciplinaSelected);
+    	avaliacao.setTurma(turmaSelected);
+    	
+		if(AvaliacaoClient.criarAvaliacao(avaliacao)){
 			addInfoMessage("Avaliação criada!");
 		}else{
 			addWarningMessage("Problemas ao criar avaliação!");

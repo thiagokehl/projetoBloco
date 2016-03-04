@@ -19,6 +19,5 @@ public class Teste {
 		avaliacao.setDisciplinaNome("Engenharia de Software");
 		avaliacao.setProfessorNome("Aquino");
 		
-		EmailUtil.enviaEmail(aluno, avaliacao);
 	}
 }

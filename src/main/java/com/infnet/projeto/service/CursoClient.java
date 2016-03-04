@@ -6,11 +6,12 @@
 
 package com.infnet.projeto.service;
 
+import java.util.List;
+
 import com.infnet.projeto.data.Curso;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
-import java.util.List;
 
 
 /** 

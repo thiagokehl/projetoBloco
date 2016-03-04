@@ -1,22 +1,28 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import model.Aluno;
 import model.Avaliacao;
 import model.AvaliacaoAluno;
+import model.AvaliacaoTurma;
 import model.Questionario;
-import model.Turma;
+import utils.EmailUtil;
 import vo.AvaliacaoDispVO;
 
 public class AvaliacaoDAO extends DAO {
 
 	private static final String QUERY_SELECT_BY_TURMA = "Select * from avaliacao where idTurma = ?";
 	private static final String QUERY_SELECT_AVALIACOES_DISP_BY_ALUNO = "select avl.id, aln.id, dsp.nome, prf.nome, dsp.semestre from turma trm, turma_alunos tra, aluno aln, disciplina dsp, professor prf, avaliacao avl where tra.idTurma = trm.id and tra.idAluno = aln.id and avl.idTurma = trm.id and trm.idDisciplina = dsp.id and trm.idProfessor = prf.id and CURDATE() between avl.dataInicial and avl.dataFinal and aln.id = ? ";
+	private static final String QUERY_INSERT_AVALIACAO = "insert into avaliacao (idTurma, idQuestionario, dataInicial, dataFinal) values (?,?,?,?)";
+	private static final String QUERY_INSERT_AVALIACAO_ALUNO = "insert into avaliacao_aluno (id, idAluno, idAvaliacao, finalizada) values (?, ?, LAST_INSERT_ID(), 'N')";
 
 	private QuestionarioDAO questionarioDAO = new QuestionarioDAO();
 	private AvaliacaoAlunoDAO avaliacaoAlunoDAO = new AvaliacaoAlunoDAO();
@@ -67,5 +73,31 @@ public class AvaliacaoDAO extends DAO {
 		rs.close();
 
 		return avaliacoesDisp;
+	}
+	
+	public void create(AvaliacaoTurma avaliacao) throws SQLException{
+		Connection conexao = getConexao();
+		PreparedStatement pstm = conexao.prepareStatement(QUERY_INSERT_AVALIACAO);
+		pstm.setLong(1, avaliacao.getTurma().getId());
+		pstm.setLong(2, 1L);
+		pstm.setDate(3, new Date(avaliacao.getInicio().getTime()));
+		pstm.setDate(4, new Date(avaliacao.getFim().getTime()));
+		pstm.execute();
+		
+		if(avaliacao.getTurma().getAlunos() != null){
+			pstm = conexao.prepareStatement(QUERY_INSERT_AVALIACAO_ALUNO);
+			for(Aluno aluno : avaliacao.getTurma().getAlunos()){
+				String id = String.valueOf(UUID.randomUUID());
+				pstm.setString(1, id);
+				pstm.setLong(2, aluno.getId());
+				pstm.execute();
+				
+				EmailUtil emailUtil = new EmailUtil(id, aluno, avaliacao.getTurma(), avaliacao.getDisciplina());
+				emailUtil.start();
+			}
+		}
+		
+		pstm.close();
+		conexao.close();
 	}
 }
