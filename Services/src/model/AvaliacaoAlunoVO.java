@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,13 +19,16 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
  */
 @XmlRootElement
 @JsonPropertyOrder({"idAvaliacaoAluno", "nomeAluno", "matricula", "finalizada"})
-public class AvaliacaoAlunoVO {
+public class AvaliacaoAlunoVO implements Serializable{
 	@JsonProperty
-	private Long idAvaliacaoAluno;
+	private String id;
+	@JsonProperty
+	private Long idAvaliacao;
 	@JsonProperty
 	private String nomeAluno;
 	@JsonProperty
 	private String matricula;
+	private String email;
 	@JsonProperty
 	private Boolean finalizada;
 	private String professor;
@@ -33,12 +37,35 @@ public class AvaliacaoAlunoVO {
 	private Date fim;
 	private Questionario questionario; 
 	private QuestionarioResposta resposta;
+	private String freeText;
 	
-	public Long getIdAvaliacaoAluno() {
-		return idAvaliacaoAluno;
+	
+
+	public String getEmail() {
+		return email;
 	}
-	public void setIdAvaliacaoAluno(Long idAvaliacaoAluno) {
-		this.idAvaliacaoAluno = idAvaliacaoAluno;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getFreeText() {
+		return freeText;
+	}
+	public void setFreeText(String freeText) {
+		this.freeText = freeText;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public Long getIdAvaliacao() {
+		return idAvaliacao;
+	}
+	public void setIdAvaliacao(Long idAvaliacao) {
+		this.idAvaliacao = idAvaliacao;
 	}
 	public String getNomeAluno() {
 		return nomeAluno;

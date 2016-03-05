@@ -5,8 +5,14 @@
  */
 package com.infnet.projeto.managedBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import com.infnet.projeto.data.Aluno;
-import com.infnet.projeto.data.Avaliacao;
 import com.infnet.projeto.data.AvaliacaoAluno;
 import com.infnet.projeto.data.AvaliacaoAlunoVO;
 import com.infnet.projeto.data.AvaliacoesTurmaVO;
@@ -17,11 +23,6 @@ import com.infnet.projeto.data.QuestaoResposta;
 import com.infnet.projeto.data.Turma;
 import com.infnet.projeto.service.CursoClient;
 import com.infnet.projeto.service.TurmaClient;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 /**
  *
@@ -63,8 +64,8 @@ public class avaliacaoTurmaMBean extends BaseMBean{
                                     if (turma.getAlunos() != null){
                                         for (Aluno oneAluno : turma.getAlunos()){
                                             AvaliacaoAlunoVO avaliacaoAlunoVO = new AvaliacaoAlunoVO();
-                                            avaliacaoAlunoVO.setIdAvaliacaoAluno(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-                                            if (avaliacaoAlunoVO.getIdAvaliacaoAluno() != null){
+                                            avaliacaoAlunoVO.setId(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
+                                            if (avaliacaoAlunoVO.getId() != null){
                                                 avaliacaoAlunoVO.setFinalizada(Boolean.TRUE);
                                                 
                                                 AvaliacoesTurmaVO oneAvaliacao = new AvaliacoesTurmaVO();
@@ -94,7 +95,7 @@ public class avaliacaoTurmaMBean extends BaseMBean{
              }
     }    
 
-    private Long obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
+    private String obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
         for (AvaliacaoAluno oneAvlAluno : avaliacoesAlunos){
             if (oneAvlAluno.getAluno().getId().equals(aluno.getId()) && "S".equals(oneAvlAluno.getFinalizada())){
                 return oneAvlAluno.getId();

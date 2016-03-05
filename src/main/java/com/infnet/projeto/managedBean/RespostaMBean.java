@@ -1,6 +1,10 @@
 package com.infnet.projeto.managedBean;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +17,15 @@ import org.primefaces.event.RateEvent;
 
 import com.infnet.projeto.data.AvaliacaoAlunoVO;
 import com.infnet.projeto.data.Questao;
+import com.infnet.projeto.data.QuestaoResposta;
+import com.infnet.projeto.data.QuestionarioResposta;
 import com.infnet.projeto.service.AvaliacaoClient;
 
 @ManagedBean
 @ViewScoped
 public class RespostaMBean extends BaseMBean{
-	private Integer rating;
 	private AvaliacaoAlunoVO avaliacaoAluno;
+	private List<QuestaoResposta> respostas;
 
 	@PostConstruct
 	public void init(){
@@ -27,6 +33,29 @@ public class RespostaMBean extends BaseMBean{
 		String avaliacaoAlunoId = parameterMap.get("id");
 
 		avaliacaoAluno = AvaliacaoClient.getAvaliacaoInfo(avaliacaoAlunoId);
+		if(avaliacaoAluno.getResposta() != null){
+			respostas = avaliacaoAluno.getResposta().getRespostas();
+		}
+
+		if(respostas == null){
+			respostas = new ArrayList<QuestaoResposta>();
+			QuestionarioResposta questionarioResposta = new QuestionarioResposta();
+			questionarioResposta.setRespostas(respostas);
+			avaliacaoAluno.setResposta(questionarioResposta);
+		}
+
+		for(Questao questao : avaliacaoAluno.getQuestionario().getQuestoes()){
+			if(!respostas.contains(questao)){
+				QuestaoResposta resposta = new QuestaoResposta();
+				resposta.setCategoria(questao.getCategoria());
+				resposta.setTexto(questao.getTexto());
+				resposta.setId(questao.getId());
+				respostas.add(resposta);
+			}
+		}
+		
+		
+
 	} 
 
 
@@ -46,36 +75,6 @@ public class RespostaMBean extends BaseMBean{
 		return avaliacaoAluno.getMatricula();
 	}
 
-	public List<Questao> getQuestoes1(){
-		List<Questao> questoes1 = new ArrayList<Questao>();
-		for(Questao questao : avaliacaoAluno.getQuestionario().getQuestoes()){
-			if(questao.getCategoria().equalsIgnoreCase(getCategoria1())){
-				questoes1.add(questao);
-			}
-		}
-		return questoes1;
-	}
-
-	public List<Questao> getQuestoes2(){
-		List<Questao> questoes2 = new ArrayList<Questao>();
-		for(Questao questao : avaliacaoAluno.getQuestionario().getQuestoes()){
-			if(questao.getCategoria().equalsIgnoreCase(getCategoria3())){
-				questoes2.add(questao);
-			}
-		}
-		return questoes2;
-	}
-
-	public List<Questao> getQuestoes3(){
-		List<Questao> questoes3 = new ArrayList<Questao>();
-		for(Questao questao : avaliacaoAluno.getQuestionario().getQuestoes()){
-			if(questao.getCategoria().equalsIgnoreCase(getCategoria3())){
-				questoes3.add(questao);
-			}
-		}
-		return questoes3;
-	}
-
 	public String getCategoria1(){
 		return avaliacaoAluno.getQuestionario().getQuestoes().get(0).getCategoria();
 	}
@@ -88,23 +87,39 @@ public class RespostaMBean extends BaseMBean{
 		return avaliacaoAluno.getQuestionario().getQuestoes().get(14).getCategoria();
 	}
 
-
-	public Integer getRating() {
-		return rating;
+	public List<QuestaoResposta> getQuestoes1(){
+		List<QuestaoResposta> questoes = new ArrayList<QuestaoResposta>();
+		for(QuestaoResposta questao : respostas){
+			if(questao.getCategoria().equalsIgnoreCase(getCategoria1())){
+				questoes.add(questao);
+			}
+		}
+		
+		return questoes;
 	}
 
-	public void setRating(Integer rating) {
-		this.rating = rating;
+	public List<QuestaoResposta> getQuestoes2(){
+		List<QuestaoResposta> questoes = new ArrayList<QuestaoResposta>();
+		for(QuestaoResposta questao : respostas){
+			if(questao.getCategoria().equalsIgnoreCase(getCategoria2())){
+				questoes.add(questao);
+			}
+		}
+		
+		return questoes;
 	}
 
-	public Integer getRating1() {
-		return rating;
+	public List<QuestaoResposta> getQuestoes3(){
+		List<QuestaoResposta> questoes = new ArrayList<QuestaoResposta>();
+		for(QuestaoResposta questao : respostas){
+			if(questao.getCategoria().equalsIgnoreCase(getCategoria3())){
+				questoes.add(questao);
+			}
+		}
+		
+		return questoes;
 	}
 
-	public void setRating1(Integer rating) {
-		this.rating = rating;
-	}
-	
 
 
 	public void onrate(RateEvent rateEvent) {
@@ -128,10 +143,53 @@ public class RespostaMBean extends BaseMBean{
 			addInfoMessage("Concordo totalmente!");
 		}
 
+		AvaliacaoClient.update(avaliacaoAluno);
 	}
 
 	public void oncancel() {
 		addInfoMessage("Não sei avaliar!");
+		AvaliacaoClient.update(avaliacaoAluno);
 	}
-
+	
+	public boolean isFinalizada(){
+		return avaliacaoAluno.getFinalizada();
+	}
+	
+	public boolean isExpirada(){
+		Calendar c = Calendar.getInstance();
+		c.setTime(avaliacaoAluno.getFim());
+		c.add(Calendar.DATE, 1);
+		return c.before(new Date()) && !isFinalizada();
+	}
+	
+	public boolean isAberta(){
+		return !isFinalizada() && ! isExpirada();
+	}
+	
+	public String getDataFinal(){
+		Format format = new SimpleDateFormat("dd-M-yyyy");
+        return format.format(avaliacaoAluno.getFim());
+	}
+	
+	public String submit(){
+		addInfoMessage("Avaliação enviada. A InfNet agradece!");
+		avaliacaoAluno.setFinalizada(true);
+		AvaliacaoClient.update(avaliacaoAluno);
+		
+		return "";
+	}
+	
+	public String getFreeText(){
+		return avaliacaoAluno.getFreeText();
+	}
+	
+	public void setFreeText(String text){
+		avaliacaoAluno.setFreeText(text);
+		AvaliacaoClient.update(avaliacaoAluno);
+	}
+	
+	public void saveFreeText(String text){
+		avaliacaoAluno.setFreeText(text);
+		AvaliacaoClient.update(avaliacaoAluno);
+	}
 }

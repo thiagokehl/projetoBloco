@@ -49,4 +49,19 @@ public class AvaliacaoClient {
 
 		return true;
 	}
+	
+	public static boolean update(AvaliacaoAlunoVO avaliacao){
+		Client client = Client.create();
+		WebResource webResource = client.resource("http://localhost:8888/services/rest/avaliacao/resposta");
+
+		ClientResponse response = webResource.accept("application/json")
+				.type("application/json").post(ClientResponse.class, avaliacao);
+
+		if (response.getStatus() != 200) {
+			return false;
+		}
+
+		return true;
+	}
+
 }
