@@ -5,8 +5,14 @@
  */
 package com.infnet.projeto.managedBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import com.infnet.projeto.data.Aluno;
-import com.infnet.projeto.data.Avaliacao;
 import com.infnet.projeto.data.AvaliacaoAluno;
 import com.infnet.projeto.data.AvaliacaoAlunoVO;
 import com.infnet.projeto.data.AvaliacoesTurmaVO;
@@ -17,18 +23,13 @@ import com.infnet.projeto.data.QuestaoResposta;
 import com.infnet.projeto.data.Turma;
 import com.infnet.projeto.service.CursoClient;
 import com.infnet.projeto.service.TurmaClient;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author matheus
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class AvaliacaoTurmaMBean extends BaseMBean{
     private List<AvaliacaoAlunoVO> allAvaliacoes;
     private List<AvaliacoesTurmaVO> avalicoesFinalizadas;
@@ -38,8 +39,17 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
     private String professor;
     private String turma;
 
+    private Long selectedIdAvaliacao = 1L;
+    
+	public Long getSelectedIdAvaliacao() {
+		return selectedIdAvaliacao;
+	}
 
-    @PostConstruct
+	public void setSelectedIdAvaliacao(Long selectedIdAvaliacao) {
+		this.selectedIdAvaliacao = selectedIdAvaliacao;
+	}
+
+	@PostConstruct
     public void init() {
             allAvaliacoes = new ArrayList<AvaliacaoAlunoVO>(); 
             avalicoesFinalizadas = new ArrayList<AvaliacoesTurmaVO>();
@@ -54,7 +64,7 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
                             for (Turma oneTurma : oneDisciplina.getTurmas()){                                    
                                 Turma turma = TurmaClient.getInfo(oneTurma.getId().toString());
 
-                                if (turma.getAvaliacao() != null && turma.getAvaliacao().getId() == 1){
+                                if (turma.getAvaliacao() != null && turma.getAvaliacao().getId().equals(selectedIdAvaliacao)){
                                     this.curso = curso.getNome();
                                     this.disciplina = oneDisciplina;
                                     this.professor = turma.getProfessor().getNome();
@@ -63,21 +73,21 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
                                     if (turma.getAlunos() != null){
                                         for (Aluno oneAluno : turma.getAlunos()){
                                             AvaliacaoAlunoVO avaliacaoAlunoVO = new AvaliacaoAlunoVO();
-//                                            avaliacaoAlunoVO.setIdAvaliacaoAluno(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-//                                            if (avaliacaoAlunoVO.getIdAvaliacaoAluno() != null){
+                                            avaliacaoAlunoVO.setId(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
+                                            if (avaliacaoAlunoVO.getId() != null){
                                                 avaliacaoAlunoVO.setFinalizada(Boolean.TRUE);
                                                 
                                                 AvaliacoesTurmaVO oneAvaliacao = new AvaliacoesTurmaVO();
                                                 oneAvaliacao.setIdentificacao(oneAluno.getNome() + " - " + oneDisciplina.getNome() + " - " + oneDisciplina.getSemestre() + " - Turma: " + turma.getId().toString());
-                                                oneAvaliacao.setCategoriaQuestao(" ");
-                                                oneAvaliacao.setQuestao(" ");
-                                                oneAvaliacao.setResposta(" ");
+                                                oneAvaliacao.setCategoriaQuestao(null);
+                                                oneAvaliacao.setQuestao(null);
+                                                oneAvaliacao.setResposta(null);
                                                 avalicoesFinalizadas.add(oneAvaliacao);
                                                 
                                                 avalicoesFinalizadas.addAll(conteudoAvlAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-//                                            } else {
-//                                                avaliacaoAlunoVO.setFinalizada(Boolean.FALSE);
-//                                            }
+                                            } else {
+                                                avaliacaoAlunoVO.setFinalizada(Boolean.FALSE);
+                                            }
                                             avaliacaoAlunoVO.setNomeAluno(oneAluno.getNome());
                                             avaliacaoAlunoVO.setMatricula(oneAluno.getMatricula());
 
@@ -94,10 +104,10 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
              }
     }    
 
-    private Long obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
+    private String obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
         for (AvaliacaoAluno oneAvlAluno : avaliacoesAlunos){
             if (oneAvlAluno.getAluno().getId().equals(aluno.getId()) && "S".equals(oneAvlAluno.getFinalizada())){
-                return null; //oneAvlAluno.getId();
+                return oneAvlAluno.getId();
             }
         }
 
@@ -114,12 +124,12 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
                 for (QuestaoResposta qstResposta : oneAvlAluno.getQuestionarioResposta().getRespostas()){
                     
                     AvaliacoesTurmaVO questao = new AvaliacoesTurmaVO();
-                    questao.setIdentificacao(" ");
+                    questao.setIdentificacao(null);
                     if (!qstResposta.getCategoria().equals(categoria)){
                         categoria = qstResposta.getCategoria();
                         questao.setCategoriaQuestao(categoria);
                     } else {
-                        questao.setCategoriaQuestao(" ");
+                        questao.setCategoriaQuestao(null);
                     }
                     
                     questao.setQuestao(qstResposta.getTexto());

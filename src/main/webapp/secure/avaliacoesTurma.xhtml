@@ -20,7 +20,7 @@
                 <h:outputText value="#{avaliacaoTurmaMBean.disciplina.nome} - #{avaliacaoTurmaMBean.disciplina.semestre}  - Turma #{avaliacaoTurmaMBean.turma}" />
             </f:facet>                
             <p:column headerText="Situação">                      
-                <h:outputText value="#{avaliacao.finalizada ? 'Finalizada' : 'Não diponível' }" />
+                <h:outputText value="#{avaliacao.finalizada ? 'Submetida' : 'Não preenchida' }" />
             </p:column>
 
             <p:column headerText="Aluno">
@@ -64,7 +64,7 @@
 
         <h:commandLink>
             <p:graphicImage  value="/img/xlsIcon.png"/>
-            <p:dataExporter type="xls" target="aval" fileName="avaliacoes" pageOnly="true"/>
+            <p:dataExporter type="csv" target="aval" fileName="avaliacoes" encoding="utf-8"/>
         </h:commandLink>    
        
       </h:form>
