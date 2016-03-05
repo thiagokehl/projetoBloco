@@ -1,11 +1,11 @@
 package com.infnet.projeto.data;
 
 public enum Likert {
-	UM("Não concordo totalmente"),
-	DOIS("Não concordo parcialmente"),
-	TRES("Indiferente"),
-	QUATRO("Concordo parcialmente"),
-	CINCO("Concordo totalmente");
+	UM("Discordo totalmente!"),
+	DOIS("Discordo!"),
+	TRES("Não concordo nem discordo!"),
+	QUATRO("Condordo!"),
+	CINCO("Concordo totalmente!");
 	
 	private String significado;
 	

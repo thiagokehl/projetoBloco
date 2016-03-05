@@ -7,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @XmlRootElement
 public class AvaliacaoAluno{
 	@JsonProperty
-	private Long id;
+	private String id;
 	@JsonProperty
 	private Aluno aluno;
 	@JsonProperty
@@ -15,10 +15,10 @@ public class AvaliacaoAluno{
 	@JsonProperty
 	private QuestionarioResposta questionarioResposta;
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Aluno getAluno() {

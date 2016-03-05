@@ -1,11 +1,11 @@
 package model;
 
 public enum Likert {
-	UM("Nao concordo totalmente"),
-	DOIS("Nao concordo parcialmente"),
-	TRES("Indiferente"),
-	QUATRO("Concordo parcialmente"),
-	CINCO("Concordo totalmente");
+	UM("Discordo totalmente!"),
+	DOIS("Discordo!"),
+	TRES("Não concordo nem discordo!"),
+	QUATRO("Condordo!"),
+	CINCO("Concordo totalmente!");
 	
 	private String significado;
 	

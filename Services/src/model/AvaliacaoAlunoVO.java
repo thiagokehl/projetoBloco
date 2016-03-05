@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.infnet.projeto.data;
+package model;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,9 +26,9 @@ public class AvaliacaoAlunoVO implements Serializable{
 	private Long idAvaliacao;
 	@JsonProperty
 	private String nomeAluno;
-	private String email;
 	@JsonProperty
 	private String matricula;
+	private String email;
 	@JsonProperty
 	private Boolean finalizada;
 	private String professor;
@@ -37,6 +38,8 @@ public class AvaliacaoAlunoVO implements Serializable{
 	private Questionario questionario; 
 	private QuestionarioResposta resposta;
 	private String freeText;
+	
+	
 
 	public String getEmail() {
 		return email;
@@ -50,6 +53,7 @@ public class AvaliacaoAlunoVO implements Serializable{
 	public void setFreeText(String freeText) {
 		this.freeText = freeText;
 	}
+	
 	public String getId() {
 		return id;
 	}

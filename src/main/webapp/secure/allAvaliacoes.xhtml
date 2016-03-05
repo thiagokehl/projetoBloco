@@ -10,17 +10,31 @@
 <h:head>
 </h:head>
 <h:body>
-    <f:view>
-        
 	<h:form>
-            <ui:include src="menu.xhtml"/>
-	   <p:dataList value="#{cursoMBean.cursos}" var="curso" type="ordered">
-        <f:facet name="header">
-            Todos os Cursos:
-        </f:facet>
-        #{curso.nome}
-    </p:dataList>
+           <ui:include src="menu.xhtml"/>        
+            <p:dataTable var="avaliacao" value="#{avaliacaoListMBean.allAvaliacoes}">
+                <f:facet name="header">
+                    Avaliações dos Cursos Infnet
+                </f:facet>                
+                <p:column headerText="Visualizar Avaliacoes">
+                    <h:outputText />
+                </p:column>
+
+                <p:column headerText="Curso">
+                    <h:outputText value="#{avaliacao.curso}" />
+                </p:column>
+
+                <p:column headerText="Diciplina">
+                    <h:outputText value="#{avaliacao.disciplina}" />
+                </p:column>
+
+                <p:column headerText="Turma">
+                    <h:outputText value="#{avaliacao.turma}" />
+                </p:column>
+            </p:dataTable>           
+           
+           
 	</h:form>
-</f:view>
+
 </h:body>
 </html>
