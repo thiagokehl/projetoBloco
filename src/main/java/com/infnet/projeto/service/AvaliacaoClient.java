@@ -5,11 +5,14 @@
  */
 package com.infnet.projeto.service;
 
+import java.util.List;
+
 import com.infnet.projeto.data.AvaliacaoDispVO;
+import com.infnet.projeto.data.AvaliacaoTurma;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
-import java.util.List;
 
 /**
  *
@@ -24,7 +27,17 @@ public class AvaliacaoClient {
         return avaliacoesDisp;
     }
     
-    public static boolean criarAvaliacao(){
+    public static boolean criarAvaliacao(AvaliacaoTurma avaliacao){
+    	Client client = Client.create();
+    	WebResource webResource = client.resource("http://localhost:8888/services/rest/avaliacao/create");
+    	
+    	ClientResponse response = webResource.accept("application/json")
+                .type("application/json").post(ClientResponse.class, avaliacao);
+
+        if (response.getStatus() != 200) {
+        	return false;
+        }
+    	
     	return true;
     }
 }

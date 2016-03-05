@@ -1,5 +1,12 @@
 package com.infnet.projeto.managedBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import com.infnet.projeto.data.AvaliacaoVO;
 import com.infnet.projeto.data.Bloco;
 import com.infnet.projeto.data.Curso;
@@ -7,11 +14,6 @@ import com.infnet.projeto.data.Disciplina;
 import com.infnet.projeto.data.Turma;
 import com.infnet.projeto.service.CursoClient;
 import com.infnet.projeto.service.TurmaClient;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
  
 
 /**
