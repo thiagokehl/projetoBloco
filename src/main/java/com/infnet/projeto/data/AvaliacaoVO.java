@@ -25,12 +25,15 @@ public class AvaliacaoVO {
     private String disciplina;
     @JsonProperty
     private String turma;
+    @JsonProperty
+    private String periodoDisponibilizado;
 
-    public AvaliacaoVO(Long idAvaliacao, String curso, String disciplina, String turma) {
+    public AvaliacaoVO(Long idAvaliacao, String curso, String disciplina, String turma, String periodoDisponibilizado) {
         this.idAvaliacao = idAvaliacao;
         this.curso = curso;
         this.disciplina = disciplina;
         this.turma = turma;
+        this.periodoDisponibilizado = periodoDisponibilizado;
     }
     
     
@@ -65,6 +68,14 @@ public class AvaliacaoVO {
 
     public void setTurma(String turma){
         this.turma = turma;
+    }
+
+    public String getPeriodoDisponibilizado() {
+        return periodoDisponibilizado;
+    }
+
+    public void setPeriodoDisponibilizado(String periodoDisponibilizado) {
+        this.periodoDisponibilizado = periodoDisponibilizado;
     }
  
 }

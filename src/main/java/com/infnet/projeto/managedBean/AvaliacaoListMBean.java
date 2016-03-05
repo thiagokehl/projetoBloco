@@ -14,6 +14,11 @@ import com.infnet.projeto.data.Disciplina;
 import com.infnet.projeto.data.Turma;
 import com.infnet.projeto.service.CursoClient;
 import com.infnet.projeto.service.TurmaClient;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
  
 
 /**
@@ -40,7 +45,11 @@ public class AvaliacaoListMBean extends BaseMBean{
                                 for (Turma oneTurma : oneDisciplina.getTurmas()){                                    
                                     Turma turma = TurmaClient.getInfo(oneTurma.getId().toString());                                    
                                     if (turma.getAvaliacao() != null){
-                                       AvaliacaoVO avaliacaoVO = new AvaliacaoVO(turma.getAvaliacao().getId(), curso.getNome(), oneDisciplina.getNome(), turma.getId().toString());
+                                       String periodoDisponibilizado = null; 
+                                       if (turma.getAvaliacao().getInicio() != null && turma.getAvaliacao().getFim() != null){
+                                           periodoDisponibilizado = dtFormat(turma.getAvaliacao().getInicio()) + " a " + dtFormat(turma.getAvaliacao().getFim());
+                                       }
+                                       AvaliacaoVO avaliacaoVO = new AvaliacaoVO(turma.getAvaliacao().getId(), curso.getNome(), oneDisciplina.getNome(), turma.getId().toString(), periodoDisponibilizado);
                                        allAvaliacoes.add(avaliacaoVO);
                                     }
                                 }
@@ -49,6 +58,16 @@ public class AvaliacaoListMBean extends BaseMBean{
                      }                       
                  }
         }    
+        
+        private String dtFormat(Date data){
+            if (data != null){                 
+                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                 String date1 = format1.format(data);
+                 return date1;
+            } else {
+                return null;
+            }
+        }
        
         public List<AvaliacaoVO> getAllAvaliacoes(){
             return this.allAvaliacoes;
@@ -57,4 +76,5 @@ public class AvaliacaoListMBean extends BaseMBean{
         public void setAllAvaliacoes(List<AvaliacaoVO> allAvaliacoes){
             this.allAvaliacoes = allAvaliacoes;
         }
+        
 }

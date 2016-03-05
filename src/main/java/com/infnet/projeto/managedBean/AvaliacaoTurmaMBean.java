@@ -29,7 +29,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class avaliacaoTurmaMBean extends BaseMBean{
+public class AvaliacaoTurmaMBean extends BaseMBean{
     private List<AvaliacaoAlunoVO> allAvaliacoes;
     private List<AvaliacoesTurmaVO> avalicoesFinalizadas;
             
@@ -63,8 +63,8 @@ public class avaliacaoTurmaMBean extends BaseMBean{
                                     if (turma.getAlunos() != null){
                                         for (Aluno oneAluno : turma.getAlunos()){
                                             AvaliacaoAlunoVO avaliacaoAlunoVO = new AvaliacaoAlunoVO();
-                                            avaliacaoAlunoVO.setIdAvaliacaoAluno(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-                                            if (avaliacaoAlunoVO.getIdAvaliacaoAluno() != null){
+//                                            avaliacaoAlunoVO.setIdAvaliacaoAluno(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
+//                                            if (avaliacaoAlunoVO.getIdAvaliacaoAluno() != null){
                                                 avaliacaoAlunoVO.setFinalizada(Boolean.TRUE);
                                                 
                                                 AvaliacoesTurmaVO oneAvaliacao = new AvaliacoesTurmaVO();
@@ -75,9 +75,9 @@ public class avaliacaoTurmaMBean extends BaseMBean{
                                                 avalicoesFinalizadas.add(oneAvaliacao);
                                                 
                                                 avalicoesFinalizadas.addAll(conteudoAvlAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-                                            } else {
-                                                avaliacaoAlunoVO.setFinalizada(Boolean.FALSE);
-                                            }
+//                                            } else {
+//                                                avaliacaoAlunoVO.setFinalizada(Boolean.FALSE);
+//                                            }
                                             avaliacaoAlunoVO.setNomeAluno(oneAluno.getNome());
                                             avaliacaoAlunoVO.setMatricula(oneAluno.getMatricula());
 
@@ -97,7 +97,7 @@ public class avaliacaoTurmaMBean extends BaseMBean{
     private Long obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
         for (AvaliacaoAluno oneAvlAluno : avaliacoesAlunos){
             if (oneAvlAluno.getAluno().getId().equals(aluno.getId()) && "S".equals(oneAvlAluno.getFinalizada())){
-                return oneAvlAluno.getId();
+                return null; //oneAvlAluno.getId();
             }
         }
 
