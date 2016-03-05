@@ -69,9 +69,9 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
                                                 
                                                 AvaliacoesTurmaVO oneAvaliacao = new AvaliacoesTurmaVO();
                                                 oneAvaliacao.setIdentificacao(oneAluno.getNome() + " - " + oneDisciplina.getNome() + " - " + oneDisciplina.getSemestre() + " - Turma: " + turma.getId().toString());
-                                                oneAvaliacao.setCategoriaQuestao(null);
-                                                oneAvaliacao.setQuestao(null);
-                                                oneAvaliacao.setResposta(null);
+                                                oneAvaliacao.setCategoriaQuestao(" ");
+                                                oneAvaliacao.setQuestao(" ");
+                                                oneAvaliacao.setResposta(" ");
                                                 avalicoesFinalizadas.add(oneAvaliacao);
                                                 
                                                 avalicoesFinalizadas.addAll(conteudoAvlAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
@@ -114,12 +114,12 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
                 for (QuestaoResposta qstResposta : oneAvlAluno.getQuestionarioResposta().getRespostas()){
                     
                     AvaliacoesTurmaVO questao = new AvaliacoesTurmaVO();
-                    questao.setIdentificacao(null);
+                    questao.setIdentificacao(" ");
                     if (!qstResposta.getCategoria().equals(categoria)){
                         categoria = qstResposta.getCategoria();
                         questao.setCategoriaQuestao(categoria);
                     } else {
-                        questao.setCategoriaQuestao(null);
+                        questao.setCategoriaQuestao(" ");
                     }
                     
                     questao.setQuestao(qstResposta.getTexto());
