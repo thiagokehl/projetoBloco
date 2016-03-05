@@ -32,26 +32,39 @@
             </p:column>
         </p:dataTable>                                
 
-        <p:dataTable var="avaliacoesFinalizadas" 
-                     value="#{avaliacaoTurmaMBean.avalicoesFinalizadas}"  
+        <p:dataTable id="aval" var="avaliacoesFinalizadas" 
+                     value="#{avaliacaoTurmaMBean.avalicoesFinalizadas}"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"  
                      style="display: none">>
-                <p:column headerText="Identificação">                      
+                <p:column >
+                <f:facet name="header">
+                <h:outputText value="Identificação" />
+            </f:facet>                      
                     <h:outputText value="#{avaliacoesFinalizadas.identificacao}" />
                 </p:column>
-                <p:column headerText="Categoria">                      
+                <p:column >
+                <f:facet name="header">
+                <h:outputText value="Categoria" />
+            </f:facet>                      
                     <h:outputText value="#{avaliacoesFinalizadas.categoriaQuestao}" />
                 </p:column>
-                <p:column headerText="Questão">                      
+                <p:column>
+                <f:facet name="header">
+                <h:outputText value="Questão" />
+            </f:facet>                      
                     <h:outputText value="#{avaliacoesFinalizadas.questao}" />
                 </p:column>
-                <p:column headerText="Resposta">                      
+                <p:column>
+                <f:facet name="header">
+                <h:outputText value="Resposta" />
+            </f:facet>                      
                     <h:outputText value="#{avaliacoesFinalizadas.resposta}" />
                 </p:column>    
         </p:dataTable>
 
         <h:commandLink>
-            <p:graphicImage  name="/src/main/webapp/img/xlsIcon.png" width="24"/>
-            <p:dataExporter type="xls" target="avaliacoesFinalizadas" fileName="avaliacoes" />
+            <p:graphicImage  value="/img/xlsIcon.png"/>
+            <p:dataExporter type="xls" target="aval" fileName="avaliacoes" pageOnly="true"/>
         </h:commandLink>    
        
       </h:form>

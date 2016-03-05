@@ -5,14 +5,8 @@
  */
 package com.infnet.projeto.managedBean;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
 import com.infnet.projeto.data.Aluno;
+import com.infnet.projeto.data.Avaliacao;
 import com.infnet.projeto.data.AvaliacaoAluno;
 import com.infnet.projeto.data.AvaliacaoAlunoVO;
 import com.infnet.projeto.data.AvaliacoesTurmaVO;
@@ -23,6 +17,11 @@ import com.infnet.projeto.data.QuestaoResposta;
 import com.infnet.projeto.data.Turma;
 import com.infnet.projeto.service.CursoClient;
 import com.infnet.projeto.service.TurmaClient;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
@@ -30,7 +29,7 @@ import com.infnet.projeto.service.TurmaClient;
  */
 @ManagedBean
 @ViewScoped
-public class avaliacaoTurmaMBean extends BaseMBean{
+public class AvaliacaoTurmaMBean extends BaseMBean{
     private List<AvaliacaoAlunoVO> allAvaliacoes;
     private List<AvaliacoesTurmaVO> avalicoesFinalizadas;
             
@@ -64,21 +63,21 @@ public class avaliacaoTurmaMBean extends BaseMBean{
                                     if (turma.getAlunos() != null){
                                         for (Aluno oneAluno : turma.getAlunos()){
                                             AvaliacaoAlunoVO avaliacaoAlunoVO = new AvaliacaoAlunoVO();
-                                            avaliacaoAlunoVO.setId(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-                                            if (avaliacaoAlunoVO.getId() != null){
+//                                            avaliacaoAlunoVO.setIdAvaliacaoAluno(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
+//                                            if (avaliacaoAlunoVO.getIdAvaliacaoAluno() != null){
                                                 avaliacaoAlunoVO.setFinalizada(Boolean.TRUE);
                                                 
                                                 AvaliacoesTurmaVO oneAvaliacao = new AvaliacoesTurmaVO();
                                                 oneAvaliacao.setIdentificacao(oneAluno.getNome() + " - " + oneDisciplina.getNome() + " - " + oneDisciplina.getSemestre() + " - Turma: " + turma.getId().toString());
-                                                oneAvaliacao.setCategoriaQuestao(null);
-                                                oneAvaliacao.setQuestao(null);
-                                                oneAvaliacao.setResposta(null);
+                                                oneAvaliacao.setCategoriaQuestao(" ");
+                                                oneAvaliacao.setQuestao(" ");
+                                                oneAvaliacao.setResposta(" ");
                                                 avalicoesFinalizadas.add(oneAvaliacao);
                                                 
                                                 avalicoesFinalizadas.addAll(conteudoAvlAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
-                                            } else {
-                                                avaliacaoAlunoVO.setFinalizada(Boolean.FALSE);
-                                            }
+//                                            } else {
+//                                                avaliacaoAlunoVO.setFinalizada(Boolean.FALSE);
+//                                            }
                                             avaliacaoAlunoVO.setNomeAluno(oneAluno.getNome());
                                             avaliacaoAlunoVO.setMatricula(oneAluno.getMatricula());
 
@@ -95,10 +94,10 @@ public class avaliacaoTurmaMBean extends BaseMBean{
              }
     }    
 
-    private String obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
+    private Long obterIdAvaliacaoAluno(Aluno aluno, List<AvaliacaoAluno> avaliacoesAlunos){            
         for (AvaliacaoAluno oneAvlAluno : avaliacoesAlunos){
             if (oneAvlAluno.getAluno().getId().equals(aluno.getId()) && "S".equals(oneAvlAluno.getFinalizada())){
-                return oneAvlAluno.getId();
+                return null; //oneAvlAluno.getId();
             }
         }
 
@@ -115,12 +114,12 @@ public class avaliacaoTurmaMBean extends BaseMBean{
                 for (QuestaoResposta qstResposta : oneAvlAluno.getQuestionarioResposta().getRespostas()){
                     
                     AvaliacoesTurmaVO questao = new AvaliacoesTurmaVO();
-                    questao.setIdentificacao(null);
+                    questao.setIdentificacao(" ");
                     if (!qstResposta.getCategoria().equals(categoria)){
                         categoria = qstResposta.getCategoria();
                         questao.setCategoriaQuestao(categoria);
                     } else {
-                        questao.setCategoriaQuestao(null);
+                        questao.setCategoriaQuestao(" ");
                     }
                     
                     questao.setQuestao(qstResposta.getTexto());
