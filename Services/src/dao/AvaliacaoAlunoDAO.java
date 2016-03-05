@@ -25,7 +25,7 @@ public class AvaliacaoAlunoDAO extends DAO{
 		ResultSet rs = pstm.executeQuery(); 
 		while (rs.next()) {   
 			AvaliacaoAluno avaliacaoAluno = new AvaliacaoAluno();
-			avaliacaoAluno.setId(rs.getLong("id"));
+			avaliacaoAluno.setId(rs.getString("id"));
 			avaliacaoAluno.setFinalizada(rs.getString("finalizada"));
 			
 			Aluno aluno = alunoDAO.findById(rs.getLong("idAluno"));

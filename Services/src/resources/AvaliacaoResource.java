@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
+import model.AvaliacaoAlunoVO;
 import model.AvaliacaoTurma;
 import vo.AvaliacaoDispVO;
 import dao.AvaliacaoDAO;
@@ -34,6 +35,20 @@ public class AvaliacaoResource {
 		GenericEntity<List<AvaliacaoDispVO>> entity = new GenericEntity<List<AvaliacaoDispVO>>(avaliacoesDisp) {};
 		
 		return Response.ok().entity(entity).build();
+	}
+	
+	@GET
+	@Produces("application/json; charset=utf-8")
+	@Path("/aluno/{id}")
+	public Response getAvaliacaoAluno(@PathParam("id") String avaliacaoAlunoId){
+		AvaliacaoAlunoVO avaliacaoAluno;
+		try {
+			avaliacaoAluno = avaliacaoDAO.get(avaliacaoAlunoId);			
+		} catch (SQLException e) {
+			return Response.serverError().build();
+		}
+		
+		return Response.ok().entity(avaliacaoAluno).build();
 	}
 	
 	@POST

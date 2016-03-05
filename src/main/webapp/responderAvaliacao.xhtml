@@ -10,16 +10,76 @@
 <h:head>
 </h:head>
 <h:body>
-    <f:view>
-        
-	<h:form>
-	   <p:dataList value="#{cursoMBean.cursos}" var="curso" type="ordered">
-        <f:facet name="header">
-            Todos os Cursos:
-        </f:facet>
-        #{curso.nome}
-    </p:dataList>
-	</h:form>
-</f:view>
+	<f:view>
+		<h:form>
+			<p:growl id="msg" showDetail="false" />
+			<p:panel id="panel" header="Avaliação - Alunos da Pós Graduação"
+				style="text-align:center">
+				<h:panelGrid style="text-align:left" columns="8" cellpadding="5">
+					<p:outputLabel for="aluno" style="font-weight:bold" value="Aluno: " />
+					<p:outputLabel id="aluno" value="#{respostaMBean.aluno}" />
+					<p:spacer width="150" height="10" />
+					<p:spacer width="150" height="10" />
+					<p:spacer width="150" height="10" />
+					<p:spacer width="150" height="10" />
+					<p:outputLabel style="font-weight:bold" value="Matrícula:" />
+					<p:outputLabel id="matricula" value="#{respostaMBean.matricula}" />
+					<p:outputLabel style="font-weight:bold" value="Disciplina:" />
+					<p:outputLabel id="Disciplina" value="#{respostaMBean.disciplina}" />
+					<p:spacer width="150" height="10" />
+					<p:spacer width="150" height="10" />
+					<p:spacer width="150" height="10" />
+					<p:spacer width="150" height="10" />
+					<p:outputLabel style="font-weight:bold" value="Professor:" />
+					<p:outputLabel id="professor" value="#{respostaMBean.professor}" />
+				</h:panelGrid>
+			</p:panel>
+			<p:dataList value="#{respostaMBean.questoes1}" var="question"
+				type="definition" >
+				<f:facet name="header"> #{respostaMBean.categoria1}</f:facet>
+				<p:growl id="msg1" showDetail="false" />
+				<p:panelGrid columns="2" >
+        #{question.texto}
+        <p:rating value="#{respostaMBean.rating1}" >
+						<p:ajax event="rate" listener="#{respostaMBean.onrate}" update="msg1"/>
+						<p:ajax event="cancel" listener="#{respostaMBean.oncancel}" update="msg1"/>
+					</p:rating>
+				</p:panelGrid>
+			</p:dataList>
+			<p:dataList value="#{respostaMBean.questoes2}" var="question"
+				type="definition">
+				<f:facet name="header"> #{respostaMBean.categoria2}</f:facet>
+				<p:growl id="msg2" showDetail="false" />
+				<p:panelGrid columns="2">
+        #{question.texto}
+        <p:rating value="#{respostaMBean.rating}">
+						<p:ajax event="rate" listener="#{respostaMBean.onrate}" update="msg2"/>
+						<p:ajax event="cancel" listener="#{respostaMBean.oncancel}" update="msg2"/>
+					</p:rating>
+				</p:panelGrid>
+			</p:dataList>
+			<p:dataList value="#{respostaMBean.questoes3}" var="question"
+				type="definition">
+				<f:facet name="header"> #{respostaMBean.categoria3}</f:facet>
+				<p:growl id="msg3" showDetail="false" />
+				<p:panelGrid columns="2">
+        #{question.texto}
+        <p:rating value="#{respostaMBean.rating}">
+						<p:ajax event="rate" listener="#{respostaMBean.onrate}" update="msg3"/>
+						<p:ajax event="cancel" listener="#{respostaMBean.oncancel}" update="msg3"/>
+					</p:rating>
+				</p:panelGrid>
+			</p:dataList>
+			<br />
+
+			<p:outputPanel style="width: 100%; text-align:center" layout="block">
+				<p:commandButton value="Submeter" id="save"
+					style="height: 30px; width: 150px; horizontal-align:center;"
+					actionListener="#{avaliacaoMBean.salvarAvaliacao}" update="msg"
+					icon="ui-icon-check" action="allAvaliacoes.xhtml" ajax="false" />
+			</p:outputPanel>
+
+		</h:form>
+	</f:view>
 </h:body>
 </html>

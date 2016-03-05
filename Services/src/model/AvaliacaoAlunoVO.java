@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.infnet.projeto.data;
+package model;
+
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
