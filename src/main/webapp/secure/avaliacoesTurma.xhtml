@@ -10,29 +10,50 @@
 <h:head>
 </h:head>
 <h:body>
-	<h:form>
-           <ui:include src="menu.xhtml"/>        
-            <p:dataTable var="avaliacao" value="#{avaliacaoTurmaMBean.allAvaliacoes}">
-                <f:facet name="header">
-                    <h:outputText value="#{avaliacaoTurmaMBean.curso}" />
-                    <br/>
-                    <h:outputText value="#{avaliacaoTurmaMBean.disciplina.nome} - #{avaliacaoTurmaMBean.disciplina.semestre}  - Turma #{avaliacaoTurmaMBean.turma}" />
-                </f:facet>                
-                <p:column headerText="Situação">                      
-                    <h:outputText value="#{avaliacao.finalizada ? 'Finalizada' : 'Não diponível' }" />
-                </p:column>
+    <h:form>
+       <ui:include src="menu.xhtml"/>        
+        <p:dataTable var="avaliacao" 
+                     value="#{avaliacaoTurmaMBean.allAvaliacoes}">
+            <f:facet name="header">
+                <h:outputText value="#{avaliacaoTurmaMBean.curso}" />
+                <br/>
+                <h:outputText value="#{avaliacaoTurmaMBean.disciplina.nome} - #{avaliacaoTurmaMBean.disciplina.semestre}  - Turma #{avaliacaoTurmaMBean.turma}" />
+            </f:facet>                
+            <p:column headerText="Situação">                      
+                <h:outputText value="#{avaliacao.finalizada ? 'Finalizada' : 'Não diponível' }" />
+            </p:column>
 
-                <p:column headerText="Aluno">
-                    <h:outputText value="#{avaliacao.nomeAluno}" />
-                </p:column>
+            <p:column headerText="Aluno">
+                <h:outputText value="#{avaliacao.nomeAluno}" />
+            </p:column>
 
-                <p:column headerText="Matricula">
-                    <h:outputText value="#{avaliacao.matricula}" />
-                </p:column>
-            </p:dataTable>           
-           
-           
-	</h:form>
+            <p:column headerText="Matricula">
+                <h:outputText value="#{avaliacao.matricula}" />
+            </p:column>
+        </p:dataTable>                                
 
+        <p:dataTable var="avaliacoesFinalizadas" 
+                     value="#{avaliacaoTurmaMBean.avalicoesFinalizadas}"  
+                     style="display: none">>
+                <p:column headerText="Identificação">                      
+                    <h:outputText value="#{avaliacoesFinalizadas.identificacao}" />
+                </p:column>
+                <p:column headerText="Categoria">                      
+                    <h:outputText value="#{avaliacoesFinalizadas.categoriaQuestao}" />
+                </p:column>
+                <p:column headerText="Questão">                      
+                    <h:outputText value="#{avaliacoesFinalizadas.questao}" />
+                </p:column>
+                <p:column headerText="Resposta">                      
+                    <h:outputText value="#{avaliacoesFinalizadas.resposta}" />
+                </p:column>    
+        </p:dataTable>
+
+        <h:commandLink>
+            <p:graphicImage  name="/src/main/webapp/img/xlsIcon.png" width="24"/>
+            <p:dataExporter type="xls" target="avaliacoesFinalizadas" fileName="avaliacoes" />
+        </h:commandLink>    
+       
+      </h:form>
 </h:body>
 </html>
