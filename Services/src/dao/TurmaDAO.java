@@ -35,6 +35,9 @@ public class TurmaDAO extends DAO{
 			
 			Avaliacao avaliacao = avaliacaoDAO.consultar(id);
 			turma.setAvaliacao(avaliacao);
+			
+			List<Aluno> alunos = alunoDAO.consultar(turma.getId());
+			turma.setAlunos(alunos);			
 		}
 		pstm.close(); 
 		conexao.close();

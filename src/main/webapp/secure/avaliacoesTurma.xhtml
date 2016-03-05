@@ -18,8 +18,8 @@
                     <br/>
                     <h:outputText value="#{avaliacaoTurmaMBean.disciplina.nome} - #{avaliacaoTurmaMBean.disciplina.semestre}  - Turma #{avaliacaoTurmaMBean.turma}" />
                 </f:facet>                
-                <p:column headerText="Finalizada">
-                    value="#{avaliacao.finalizada}" />
+                <p:column headerText="Situação">                      
+                    <h:outputText value="#{avaliacao.finalizada ? 'Finalizada' : 'Não diponível' }" />
                 </p:column>
 
                 <p:column headerText="Aluno">
