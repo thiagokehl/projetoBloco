@@ -12,7 +12,7 @@
 <h:body>
 	<h:form>
            <ui:include src="menu.xhtml"/>        
-            <p:dataTable var="avaliacao" value="#{avaliacaoListMBean.allAvaliacoes}">
+            <p:dataTable var="avaliacao" value="#{avaliacaoListMBean.allAvaliacoesCurso}">
                 <f:facet name="header">
                     Avaliações dos Cursos Infnet
                 </f:facet>                
@@ -34,9 +34,7 @@
                 </p:column>
                 
                  <p:column style="width:64px;text-align: center">
-             <p:commandButton  icon="ui-icon-search" title="Ver avaliações da turma" action="avaliacoesTurma.xhtml" ajax="false">
-                <f:setPropertyActionListener value="#{avaliacao.idAvaliacao}" target="#{avaliacaoTurmaMBean.selectedIdAvaliacao}" />
-            </p:commandButton>
+             <p:commandButton  icon="ui-icon-search" title="Ver avaliações da turma" target="#{dtSelectionView.selectedCar}" action="avaliacoesTurma.xhtml" ajax="false"/>
         </p:column>
             </p:dataTable>           
            

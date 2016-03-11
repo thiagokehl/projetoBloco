@@ -10,9 +10,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import com.infnet.projeto.data.Aluno;
+import com.infnet.projeto.data.Avaliacao;
 import com.infnet.projeto.data.AvaliacaoAluno;
 import com.infnet.projeto.data.AvaliacaoAlunoVO;
 import com.infnet.projeto.data.AvaliacoesTurmaVO;
@@ -29,7 +30,7 @@ import com.infnet.projeto.service.TurmaClient;
  * @author matheus
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AvaliacaoTurmaMBean extends BaseMBean{
     private List<AvaliacaoAlunoVO> allAvaliacoes;
     private List<AvaliacoesTurmaVO> avalicoesFinalizadas;
@@ -64,14 +65,16 @@ public class AvaliacaoTurmaMBean extends BaseMBean{
                             for (Turma oneTurma : oneDisciplina.getTurmas()){                                    
                                 Turma turma = TurmaClient.getInfo(oneTurma.getId().toString());
 
-                                if (turma.getAvaliacao() != null && turma.getAvaliacao().getId().equals(selectedIdAvaliacao)){
+                                if (turma.getAvaliacao() != null){
                                     this.curso = curso.getNome();
                                     this.disciplina = oneDisciplina;
                                     this.professor = turma.getProfessor().getNome();
                                     this.turma = turma.getId().toString();
                                     
-                                    if (turma.getAlunos() != null){
-                                        for (Aluno oneAluno : turma.getAlunos()){
+                                    if (turma.getAvaliacao() != null){
+                                    	Avaliacao avaliacao = turma.getAvaliacao();
+                                        for (AvaliacaoAluno avalAluno : avaliacao.getAvaliacoesAlunos()){
+                                        	Aluno oneAluno = avalAluno.getAluno();
                                             AvaliacaoAlunoVO avaliacaoAlunoVO = new AvaliacaoAlunoVO();
                                             avaliacaoAlunoVO.setId(obterIdAvaliacaoAluno(oneAluno, turma.getAvaliacao().getAvaliacoesAlunos()));
                                             if (avaliacaoAlunoVO.getId() != null){

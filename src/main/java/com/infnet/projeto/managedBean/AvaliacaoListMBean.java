@@ -26,12 +26,12 @@ import com.infnet.projeto.service.TurmaClient;
 @ViewScoped
 public class AvaliacaoListMBean extends BaseMBean{
 
-        private List<AvaliacaoVO> allAvaliacoes;
+        private List<AvaliacaoVO> allAvaliacoesCurso;
  
          
 	@PostConstruct
 	public void init() {
-                allAvaliacoes = new ArrayList<AvaliacaoVO>();     
+		allAvaliacoesCurso = new ArrayList<AvaliacaoVO>();     
                 
         	List<Curso> allCursos = CursoClient.getAllCursos();
                 for (Curso oneCurso: allCursos){
@@ -47,7 +47,7 @@ public class AvaliacaoListMBean extends BaseMBean{
                                            periodoDisponibilizado = dtFormat(turma.getAvaliacao().getInicio()) + " a " + dtFormat(turma.getAvaliacao().getFim());
                                        }
                                        AvaliacaoVO avaliacaoVO = new AvaliacaoVO(turma.getAvaliacao().getId(), curso.getNome(), oneDisciplina.getNome(), turma.getId().toString(), periodoDisponibilizado);
-                                       allAvaliacoes.add(avaliacaoVO);
+                                       allAvaliacoesCurso.add(avaliacaoVO);
                                     }
                                 }
                              }
@@ -65,13 +65,14 @@ public class AvaliacaoListMBean extends BaseMBean{
                 return null;
             }
         }
+
+		public List<AvaliacaoVO> getAllAvaliacoesCurso() {
+			return allAvaliacoesCurso;
+		}
+
+		public void setAllAvaliacoesCurso(List<AvaliacaoVO> allAvaliacoesCurso) {
+			this.allAvaliacoesCurso = allAvaliacoesCurso;
+		}
        
-        public List<AvaliacaoVO> getAllAvaliacoes(){
-            return this.allAvaliacoes;
-        }
-        
-        public void setAllAvaliacoes(List<AvaliacaoVO> allAvaliacoes){
-            this.allAvaliacoes = allAvaliacoes;
-        }
         
 }
